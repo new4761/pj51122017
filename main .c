@@ -39,7 +39,7 @@ int main()
 {
     char custname;
     printf("-----------------------------------------------------------------");
-    printf("\n|                       Market EEP                             |");
+    printf("\n|                      EEP store                               |");
     printf("\n|             1.Yeezy                                          |");
     printf("\n|             2.Tubular radial                                 |");
     printf("\n|             3.Nmd r1 yelllow                                 |");
@@ -66,35 +66,51 @@ int main()
 //}
 int input_product()
 {
-    int s,q,i_cust=0,i_product=0,sum=0,i,pcode,pamount,subtotal,pname;
-    float price;
+    int s,q,i_cust=0,i_product=0,sum=0,i=0,pcode,pamount,subtotal,pname;
+    int price;
     do{
       printf("\nSelect product:");
       scanf("%d",&s);
-      printf("Quantity :");
-      scanf("%d",&q);
-      billDetail[i_cust][i_product].product_amount = q;
-      billDetail[i_cust][i_product].product_code = s-1;
+      if(s==0)break;
+      do {
+        printf("Quantity :");
+        scanf("%d",&q);
+        printf("%d",product[s-1].current_stock);
+            if(q>product[s-1].current_stock){
+           // printf("%d",pamount-product[q].current_stock);
+            printf(" Product Not Enough ");
+            printf("\n***** Please Insert new Quantity ****** \n");
+
+      }
+      }while(q>product[s].current_stock);
+     billDetail[i][i].product_amount = q;
+     billDetail[i][i].product_code = s-1;
       i_product=i_product+1;
+      i++;
     }while(s!=0 && i_product<30);
-    printf("            EEP Store               ");
+    printf("\n--------------------------------------------------------------------");
+    printf("\n            EEP Store               ");
     printf("\ncustomer: %s");
     printf("\n--------------------------------------------------------------------");
-    printf("\n| Order |         Product        |   Amount  |  Price |  Subtotal  |");
+    printf("\n| Order             Product              Amount       Price      Subtotal    |");
     printf("\n--------------------------------------------------------------------");
     for(i=0;i<i_product;i++)
-    {
-        pcode=billDetail[i_cust][i].product_code;
-        price = product[pcode-1]. price;
-        pamount=billDetail[i_cust][i].product_amount;
-        sum=sum+(price*pamount);
+    { subtotal=0;
 
-        pname=product[i].product_name;
-        pamount=billDetail[i_cust][i].product_amount;
-        subtotal=price*pamount;
+       pcode=billDetail[i][i].product_code;
+        price = product[pcode]. price;
+        pamount=billDetail[i][i].product_amount;
 
-        printf("\n|\t%d\t|\t%s\t|\t%d\t|\t%.2f\t|\t%.2f\t|",i+1,pname,pamount,price,subtotal);
+       subtotal=price*pamount;
+        sum+=subtotal;
+        pname=product[pcode].product_name;
+       product[pcode].current_stock-=pamount;
+       printf("\n%d",(product[pcode].current_stock));
+
+
+
+        printf("\n|  %d  \t  %s  \t\t%d\t\t%d\t\t%d\t|",i+1,pname,pamount,price,subtotal);
     }
-    printf("\n--------------------------------------------------------------------");
-    printf("\n                                               Total: %.2f",sum);
+    printf("\n-------------------1-------------------------------------------------");
+    printf("\n                                               Total: %d",sum);
 }
