@@ -26,8 +26,6 @@ struct product_type{
 };
    typedef struct{
        char name_customer[50];
-       char address[100];
-       char date[10];
    }BillHead;
      BillHead billHead[100];
 
@@ -39,47 +37,51 @@ struct product_type{
 
 int main()
 {
-    int custname;
+    char custname;
     printf("-----------------------------------------------------------------");
-    printf("\n|                       Market EEP                            |");
-    printf("\n|             1.Yeezy                                         |");
-    printf("\n|             2.Tubular radial                                |");
-    printf("\n|             3.Nmd r1 yelllow                                |");
-    printf("\n|             4.Nmd og black                                  |");
-    printf("\n|             5.Stand smith                                   |");
-    printf("\n|             6.Nike air jordan                               |");
-    printf("\n|             7.Nike Air max 97                               |");
-    printf("\n|             8.Vans slip on run away with me                 |");
-    printf("\n|             9.Vans old skool 90s                            |");
-    printf("\n|            10.Vans style 36                                 |");
-    printf("\n|             0.End select                                    |");
+    printf("\n|                       Market EEP                             |");
+    printf("\n|             1.Yeezy                                          |");
+    printf("\n|             2.Tubular radial                                 |");
+    printf("\n|             3.Nmd r1 yelllow                                 |");
+    printf("\n|             4.Nmd og black                                   |");
+    printf("\n|             5.Stand smith                                    |");
+    printf("\n|             6.Nike air jordan                                |");
+    printf("\n|             7.Nike Air max 97                                |");
+    printf("\n|             8.Vans slip on run away with me                  |");
+    printf("\n|             9.Vans old skool 90s                             |");
+    printf("\n|            10.Vans style 36                                  |");
+    printf("\n|             0.End select                                     |");
     printf("\n-----------------------------------------------------------------");
     do {
-        printf("customer name:");
-        scanf("%s",&custname);
-        input_custinfo();
+        printf("\ncustomer name:");
+        gets(custname);
+       // input_custinfo();
         input_product();
     }while(custname!="endday");
     return 0;
 }
+//int input_customer()
+//{
+
+//}
 int input_product()
 {
     int s,q,i_cust=0,i_product=0,sum=0,i,pcode,pamount,subtotal,pname;
     float price;
     do{
-      printf("Select product:");
+      printf("\nSelect product:");
       scanf("%d",&s);
       printf("Quantity :");
       scanf("%d",&q);
       billDetail[i_cust][i_product].product_amount = q;
-      billDetail[i_cust][i_product].product_code = s;
+      billDetail[i_cust][i_product].product_code = s-1;
       i_product=i_product+1;
     }while(s!=0 && i_product<30);
     printf("            EEP Store               ");
     printf("\ncustomer: %s");
     printf("\n--------------------------------------------------------------------");
     printf("\n| Order |         Product        |   Amount  |  Price |  Subtotal  |");
-    printf("--------------------------------------------------------------------");
+    printf("\n--------------------------------------------------------------------");
     for(i=0;i<i_product;i++)
     {
         pcode=billDetail[i_cust][i].product_code;
@@ -91,12 +93,8 @@ int input_product()
         pamount=billDetail[i_cust][i].product_amount;
         subtotal=price*pamount;
 
-        printf("| %d |    %s    |   %d   |  %.2f  |   %.2f   |\n",i+1,pname,pamount,price,subtotal);
+        printf("\n|\t%d\t|\t%s\t|\t%d\t|\t%.2f\t|\t%.2f\t|",i+1,pname,pamount,price,subtotal);
     }
     printf("\n--------------------------------------------------------------------");
-    printf("                                               Total: %.2f",sum);
-}
-int input_customer()
-{
-
+    printf("\n                                               Total: %.2f",sum);
 }
